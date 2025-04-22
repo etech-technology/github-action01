@@ -20,7 +20,6 @@ else
   echo "Bucket $BUCKET_NAME does not exist. Creating..."
   aws s3api create-bucket \
     --bucket "$BUCKET_NAME" \
-    --region "$AWS_REGION" \
-    --create-bucket-configuration LocationConstraint="$AWS_REGION"
+    --region "$AWS_REGION" 
   echo "Bucket $BUCKET_NAME created successfully."
 fi
