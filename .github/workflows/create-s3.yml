@@ -1,16 +1,9 @@
-name: Create S3 Bucket
+name: Create S3 Bucket on Push to Main
 
 on:
-  workflow_dispatch:
-    inputs:
-      bucket_name:
-        description: "Enter the S3 bucket name"
-        required: true
-        type: string
-      region:
-        description: "Enter AWS region (example: us-east-1)"
-        required: true
-        type: string
+  push:
+    branches:
+      - main
 
 jobs:
   create-bucket:
@@ -25,10 +18,11 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ inputs.region }}
+          aws-region: us-east-1  # default region (optional)
 
       - name: Create S3 bucket
         run: |
           chmod +x create-s3-bucket.sh
-          ./create-s3.sh "${{ inputs.bucket_name }}" "${{ inputs.region }}"
+          ./create-s3-bucket.sh "my-unique-bucket-name-12345" "us-east-1"
+
 
